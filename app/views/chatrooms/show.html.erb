@@ -29,6 +29,14 @@
         </li>
       <% end %>
     </ul>
+    <h3>Users:</h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <% @users.each do |user| %>
+        <li class="nav-item">
+          <%= button_to user.nickname, private_chatroom_path, method: :post, params: { user_id: user.id }, class: "nav-link"  %>
+        </li>
+      <% end %>
+    </ul>
     <hr>
     <h2>New chatroom</h2>
     <%= simple_form_for @new_chatroom, class: "d-flex" do |f| %>
