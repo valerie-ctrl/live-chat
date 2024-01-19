@@ -1,38 +1,43 @@
-<div class="container chatroom " data-controller="chatroom-subscription"
-  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
-  <h1><%= @chatroom.name %></h1>
+<div class="d-flex container">
+  <div class="container chatroom " data-controller="chatroom-subscription"
+    data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>">
+    <h1><%= @chatroom.name %></h1>
 
-  <div class="messages" data-chatroom-subscription-target="messages" >
-    <% @chatroom.messages.each do |message| %>
-      <%= render 'messages/message', message: message %>
+    <div class="messages" data-chatroom-subscription-target="messages" >
+      <% @chatroom.messages.each do |message| %>
+        <%= render 'messages/message', message: message %>
+      <% end %>
+    </div>
+    <%= simple_form_for [@chatroom, @message],
+      html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" },
+      class: "d-flex" } do |f| %>
+      <%= f.input :content,
+        label: false,
+        placeholder: "Message ##{@chatroom.name}",
+        wrapper_html: {class: "flex-grow-1"}
+      %>
+      <%= f.submit "Send", class: "btn btn-primary mb-3" %>
     <% end %>
   </div>
-  <%= simple_form_for [@chatroom, @message],
-    html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" },
-    class: "d-flex" } do |f| %>
-    <%= f.input :content,
-      label: false,
-      placeholder: "Message ##{@chatroom.name}",
-      wrapper_html: {class: "flex-grow-1"}
-    %>
-    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-  <% end %>
 
-  <h3>Chatrooms:</h3>
-  <ul>
-    <% @chatrooms.each do |chatroom| %>
-      <li>
-        <%= link_to chatroom.name, chatroom_path(chatroom)  %>
-      </li>
+  <div class="d-flex flex-column mt-2 flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <h3>Chatrooms:</h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <% @chatrooms.each do |chatroom| %>
+        <li class="nav-item">
+          <%= link_to chatroom.name, chatroom_path(chatroom), class: "nav-link"  %>
+        </li>
+      <% end %>
+    </ul>
+    <hr>
+    <h2>New chatroom</h2>
+    <%= simple_form_for @new_chatroom, class: "d-flex" do |f| %>
+      <%= f.input :name,
+        label: false,
+        placeholder: "Chatroom name",
+        wrapper_html: {class: "flex-grow-1"}
+      %>
+      <%= f.submit "Create", class: "btn btn-primary mb-3" %>
     <% end %>
-  </ul>
-  <h2>New chatroom</h2>
-   <%= simple_form_for @new_chatroom, class: "d-flex" do |f| %>
-    <%= f.input :name,
-      label: false,
-      placeholder: "Chatroom name",
-      wrapper_html: {class: "flex-grow-1"}
-    %>
-    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-  <% end %>
+  </div>
 </div>
