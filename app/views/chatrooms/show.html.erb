@@ -17,4 +17,22 @@
     %>
     <%= f.submit "Send", class: "btn btn-primary mb-3" %>
   <% end %>
+
+  <h3>Chatrooms:</h3>
+  <ul>
+    <% @chatrooms.each do |chatroom| %>
+      <li>
+        <%= link_to chatroom.name, chatroom_path(chatroom)  %>
+      </li>
+    <% end %>
+  </ul>
+  <h2>New chatroom</h2>
+   <%= simple_form_for @new_chatroom, class: "d-flex" do |f| %>
+    <%= f.input :name,
+      label: false,
+      placeholder: "Chatroom name",
+      wrapper_html: {class: "flex-grow-1"}
+    %>
+    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+  <% end %>
 </div>
