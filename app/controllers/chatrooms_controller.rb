@@ -5,6 +5,11 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.find(params[:id])
     @new_chatroom = Chatroom.new
     @message = Message.new
+    if @chatroom.is_private
+      @chatroom_name = @chatroom.users.reject { |user| user == current_user }.first.nickname
+    else
+      @chatroom_name = @chatroom.name
+    end
   end
 
   def create
