@@ -17,13 +17,25 @@ class ChatroomsController < ApplicationController
   end
 
   def create_private_chatroom
-    @new_private_chatroom = Chatroom.new
+    user = User.find(private_chatroom_params[:user_id])
+
+    new_private_chatroom = Chatroom.new(is_private: true)
+    new_private_chatroom.name = "#{user.nickname}/#{current_user.nickname}"
+
+    if new_private_chatroom.save
+      new_private_chatroom.users << ChatroomUser.new(user: user, chatroom: new_private_chatroom)
+      new_private_chatroom.users << ChatroomUser.new(user: current_user, chatroom: new_private_chatroom)
+      redirect_to new_private_chatroom
+    else
+      render "chatrooms/show", status: :unprocessable_entity
+    end
+
   end
 
   private
 
   def private_chatroom_params
-    params.require(:private_chatroom).permit(:user_id)
+    params.require(:chatroom).permit(:user_id)
   end
 
   def new_chatroom_params
