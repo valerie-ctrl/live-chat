@@ -18,18 +18,26 @@ class ChatroomsController < ApplicationController
 
   def create_private_chatroom
     user = User.find(private_chatroom_params[:user_id])
-
+    # existing_chatroom = Chatroom.joins(:chatroom_users)
+    #   .where(is_private: true)
+    #   .where(chatroom_users: { user_id: [user.id, current_user.id] })
+    #   .group('chatrooms.id')
+    #   .having('COUNT(chatrooms.id) = 2')
+    #   .first
+    # unless existing_chatroom
     new_private_chatroom = Chatroom.new(is_private: true)
     new_private_chatroom.name = "#{user.nickname}/#{current_user.nickname}"
 
     if new_private_chatroom.save
-      new_private_chatroom.users << ChatroomUser.new(user: user, chatroom: new_private_chatroom)
-      new_private_chatroom.users << ChatroomUser.new(user: current_user, chatroom: new_private_chatroom)
+      new_private_chatroom.chatroom_users << ChatroomUser.new(user: user, chatroom: new_private_chatroom)
+      new_private_chatroom.chatroom_users << ChatroomUser.new(user: current_user, chatroom: new_private_chatroom)
       redirect_to new_private_chatroom
     else
       render "chatrooms/show", status: :unprocessable_entity
     end
-
+    # else
+    #   redirect_to "chatrooms/#{existing_chatroom.id}"
+    # end
   end
 
   private
