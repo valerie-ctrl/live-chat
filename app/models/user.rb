@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :chatroom_users
   has_many :chatrooms, through: :chatroom_users
+  validates_uniqueness_of :nickname
 end
