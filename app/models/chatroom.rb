@@ -4,10 +4,10 @@ class Chatroom < ApplicationRecord
   has_many :users, through: :chatroom_users
   validates_uniqueness_of :name
 
-  def self.find_existing_private_chatroom(user_ids)
-    Chatroom.joins(users: :chatroom_users)
+  def self.find_existing_private_chatroom(user1_id, user2_id)
+    Chatroom.joins(chatroom_users: :user)
       .where(is_private: true)
-      .where(chatroom_users: { user_id: [user_ids[0], user_ids[1]] })
+      .where(users: { id: [user1_id, user2_id] })
       .group('chatrooms.id')
       .having('COUNT(chatrooms.id) = 2')
       .first

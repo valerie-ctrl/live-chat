@@ -23,8 +23,11 @@ class ChatroomsController < ApplicationController
 
   # Chatroom between two users
   def create_private_chatroom
-    existing_chatroom = Chatroom.find_existing_private_chatroom(user_ids)
-
+    user = User.find(private_chatroom_params[:user_id])
+    user1_id = user.id
+    user2_id = current_user.id
+    existing_chatroom = Chatroom.find_existing_private_chatroom(user1_id, user2_id)
+    
     if existing_chatroom
       redirect_to existing_chatroom
     else
@@ -43,14 +46,8 @@ class ChatroomsController < ApplicationController
   private
 
   def add_chatroom_users(new_private_chatroom, user, current_user)
-    new_private_chatroom.chatroom_users << ChatroomUser.new(user: user, chatroom: new_private_chatroom)
-    new_private_chatroom.chatroom_users << ChatroomUser.new(user: current_user, chatroom: new_private_chatroom)
-  end
-
-  # User ids for private chatroom
-  def user_ids
-    user = User.find(private_chatroom_params[:user_id])
-    [user.id, current_user.id]
+    ChatroomUser.create(user: user, chatroom: new_private_chatroom)
+    ChatroomUser.create(user: current_user, chatroom: new_private_chatroom)
   end
 
   def private_chatroom_params
