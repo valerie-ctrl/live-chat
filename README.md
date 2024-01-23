@@ -1,4 +1,4 @@
-# README для Live Chat на Rails
+# Live Chat на Rails
 ## Инструкции
 ### 1. Клонировать Репозиторий
 git clone https://github.com/your-username/your-repo.git cd your-repo`
