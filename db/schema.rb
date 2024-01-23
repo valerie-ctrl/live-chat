@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_01_19_094929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  # chatroom users table is only needed for private rooms
+
   create_table "chatroom_users", force: :cascade do |t|
     t.bigint "chatroom_id", null: false
     t.bigint "user_id", null: false

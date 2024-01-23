@@ -8,17 +8,19 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-
-User.destroy_all
 puts "Deleting old users..."
+User.destroy_all
 
-Message.destroy_all
 puts "Deleting old messages..."
+Message.destroy_all
 
-Chatroom.destroy_all
 puts "Deleting old chatrooms..."
+Chatroom.destroy_all
 
+puts "Creating the Music chatroom..."
 Chatroom.create(name: "music")
+
+puts "Creating users..."
 User.create(email: "carl@email.com", nickname: "Carl", password: "123456")
 User.create(email: "luis@email.com", nickname: "Luis", password: "123456")
 User.create(email: "valeriia@email.com", nickname: "Val", password: "123456")
