@@ -5,6 +5,7 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.find(params[:id])
     @new_chatroom = Chatroom.new
     @message = Message.new
+    # For displaying the correct chatroom name in the view
     if @chatroom.is_private
       @chatroom_name = @chatroom.users.reject { |user| user == current_user }.first.nickname
     else
@@ -27,7 +28,7 @@ class ChatroomsController < ApplicationController
     user1_id = user.id
     user2_id = current_user.id
     existing_chatroom = Chatroom.find_existing_private_chatroom(user1_id, user2_id)
-    
+
     if existing_chatroom
       redirect_to existing_chatroom
     else

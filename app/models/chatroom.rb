@@ -3,7 +3,8 @@ class Chatroom < ApplicationRecord
   has_many :chatroom_users
   has_many :users, through: :chatroom_users
   validates_uniqueness_of :name
-
+  
+  # check if a private chatroom between two users already exists
   def self.find_existing_private_chatroom(user1_id, user2_id)
     Chatroom.joins(chatroom_users: :user)
       .where(is_private: true)
