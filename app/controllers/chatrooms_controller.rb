@@ -26,12 +26,8 @@ class ChatroomsController < ApplicationController
     user1_id = user.id
     user2_id = current_user.id
 
-    existing_chatroom = Chatroom.joins(users: :chatroom_users)
-      .where(is_private: true)
-      .where(chatroom_users: { user_id: [user1_id, user2_id] })
-      .group('chatrooms.id')
-      .having('COUNT(chatrooms.id) = 2')
-      .first
+    existing_chatroom = Chatroom.find_existing_private_chatroom(user1_id, user2_id)
+
     unless existing_chatroom
       new_private_chatroom = Chatroom.new(is_private: true)
       new_private_chatroom.name = "#{user.nickname}/#{current_user.nickname}"
