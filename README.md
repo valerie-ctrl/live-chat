@@ -3,7 +3,7 @@
 ### 1. Сбор Docker-Контейнеров и Запуск Тестов
 `docker build -t live-chat .`
 
-#### b. Запуск Тестов
+#### Запуск Тестов
 `docker run --rm live-chat bundle exec rspec`
 
 ### 3. Запуск Docker-Контейнера
