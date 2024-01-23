@@ -21,3 +21,4 @@ puts "Deleting old chatrooms..."
 Chatroom.create(name: "music")
 User.create(email: "carl@email.com", nickname: "Carl", password: "123456")
 User.create(email: "luis@email.com", nickname: "Luis", password: "123456")
+User.create(email: "valeriia@email.com", nickname: "Val", password: "123456")
