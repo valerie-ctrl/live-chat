@@ -6,8 +6,8 @@
 #### Запуск Тестов
 `docker run --rm live-chat bundle exec rspec`
 
-### 3. Запуск Docker-Контейнера
+### 2. Запуск Docker-Контейнера
 `docker run -p 3500:3500 live-chat`
 
-### 4. Открыть Приложение
+### 3. Открыть Приложение
  http://localhost:3500
