@@ -14,7 +14,7 @@ COPY Gemfile Gemfile.lock /rails/
 RUN bundle install
 
 # Copy the current directory contents into the container at /app
-COPY . /app/
+COPY . /
 
 # Expose port 3000 to the outside world
 EXPOSE 3000
