@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y nodejs
 
 # Copy Gemfile and Gemfile.lock into the container at /app
-COPY Gemfile Gemfile.lock /rails/
+COPY Gemfile Gemfile.lock /app/
 
 # Install any needed gems
 RUN bundle install
