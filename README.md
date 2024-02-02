@@ -1,4 +1,4 @@
-# Live Chat на Rails
+# Live Chat with Rails
 ## Инструкции
 ### 1. Сбор Docker-Контейнеров и Запуск Тестов
 `docker-compose build`
